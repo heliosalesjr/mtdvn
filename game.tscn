@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://chw2whwd06p15"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_88gup"]
+distance = -16.0
+
+[node name="Game" type="Node2D"]
+process_mode = 3
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+process_mode = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="WorldEnvironment"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldEnvironment/StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_88gup")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="WorldEnvironment"]
+
+[node name="Camera2D" type="Camera2D" parent="WorldEnvironment"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control2" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control3" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
