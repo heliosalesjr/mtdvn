@@ -28,6 +28,7 @@ _move_speed = 256.0
 _acceleration = 512.0
 _deceleration = 2048.0
 _jump_height = 256.0
+_gravity_multiplier = 1.0
 
 [node name="Player" type="Node" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
 script = ExtResource("2_e2o6t")
