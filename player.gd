@@ -7,7 +7,11 @@ func _input(event: InputEvent) -> void:
 		character.jump()
 	elif event.is_action_released("jump"):
 		character.cancel_jump()
+	
+	if event.is_action_pressed("run"):
+		character.run()
+	elif event.is_action_released("run"):
+		character.walk()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	character.direction = Input.get_axis("move_left","move_right")

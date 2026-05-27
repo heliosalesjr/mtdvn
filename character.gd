@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
-@export_category("Locomotion") 
-@export var _move_speed: float = 256
+@export_category("Locomotion")
+@export var _walk_speed: float = 256
+@export var _run_speed: float = 512
+@export var _move_speed: float = _walk_speed
 @export var _acceleration: float = 512
 @export var _deceleration: float = 2048
 var direction: float 
@@ -11,10 +13,16 @@ var direction: float
 @export var _gravity_multiplier: float = 1 #this is used to control the gravity for the player, but having that on other characters might help them feel lighter or heavier according to the desired effect.
 @export var _air_control: float = 0.5
 @export var _air_brakes: float = 0.5
+@export var _terminal_velocity: float = 2048
 @onready var _gravity: float = ProjectSettings.get("physics/2d/default_gravity") * _gravity_multiplier
 @onready var _jump_force: float = sqrt(_gravity * _jump_height * 2) * -1
 var is_jumping: bool = false
 
+func walk() -> void:
+	_move_speed = _walk_speed
+	
+func run() -> void:
+	_move_speed = _run_speed
 
 func jump() -> void:
 	if is_on_floor():
@@ -36,6 +44,7 @@ func _ground_physics(delta) -> void:
 
 func _air_physics(delta) -> void:
 	velocity.y += _gravity * delta
+	velocity.y = min(velocity.y, _terminal_velocity)
 	
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * _move_speed, _acceleration * _air_control * delta)
