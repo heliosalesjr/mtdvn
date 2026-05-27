@@ -1,23 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://chw2whwd06p15"]
 
 [ext_resource type="PackedScene" uid="uid://nj5inlfgwnv1" path="res://kitty.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://dk81goi6xam4e" path="res://player.gd" id="2_e2o6t"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_88gup"]
 distance = -16.0
-
-[sub_resource type="GDScript" id="GDScript_80nbo"]
-script/source = "extends Node
-
-@export var character: CharacterBody2D
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed(\"jump\"):
-		pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	character.direction = Input.get_axis(\"move_left\",\"move_right\")
-"
 
 [node name="Game" type="Node2D"]
 process_mode = 3
@@ -37,7 +24,7 @@ visible = false
 position = Vector2(327, 168)
 
 [node name="Player" type="Node" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
-script = SubResource("GDScript_80nbo")
+script = ExtResource("2_e2o6t")
 character = NodePath("..")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
