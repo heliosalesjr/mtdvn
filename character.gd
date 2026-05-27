@@ -14,8 +14,11 @@ var direction: float
 @export var _air_control: float = 0.5
 @export var _air_brakes: float = 0.5
 @export var _terminal_velocity: float = 2048
+@onready var _coyote: Timer = get_node_or_null("Coyote") 
 @onready var _gravity: float = ProjectSettings.get("physics/2d/default_gravity") * _gravity_multiplier
 @onready var _jump_force: float = sqrt(_gravity * _jump_height * 2) * -1
+var _is_on_floor: bool
+var _was_on_floor: bool
 var is_jumping: bool = false
 
 func walk() -> void:
@@ -24,10 +27,12 @@ func walk() -> void:
 func run() -> void:
 	_move_speed = _run_speed
 
-func jump() -> void:
-	if is_on_floor():
+func jump() -> bool:
+	if _is_on_floor or _coyote and not _coyote.is_stopped():
 		velocity.y = _jump_force
 		is_jumping = true
+		return true
+	return false
 		
 func cancel_jump() -> void:
 	if velocity.y < 0:
@@ -53,7 +58,13 @@ func _air_physics(delta) -> void:
 	
 func _physics_process(delta: float) -> void:
 	
-	if is_on_floor():
+	_was_on_floor = _is_on_floor
+	_is_on_floor = is_on_floor()
+	
+	if _was_on_floor and not _is_on_floor and velocity.y >= 0:
+		_coyote.start()
+	
+	if _is_on_floor:
 		_ground_physics(delta)
 	else:
 		_air_physics(delta)

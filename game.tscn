@@ -38,17 +38,19 @@ _air_control = 0.5
 _air_brakes = 0.5
 _terminal_velocity = 2048.0
 
-[node name="Player" type="Node" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
+[node name="Player" type="Timer" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
+wait_time = 0.25
+one_shot = true
 script = ExtResource("2_e2o6t")
 character = NodePath("..")
 
-[node name="StaticBody2D2" type="StaticBody2D" parent="WorldEnvironment"]
+[node name="obstacle_test" type="StaticBody2D" parent="WorldEnvironment"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldEnvironment/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldEnvironment/obstacle_test"]
 position = Vector2(517, -55)
 shape = SubResource("RectangleShape2D_feb5d")
 
-[node name="ColorRect" type="ColorRect" parent="WorldEnvironment/StaticBody2D2"]
+[node name="ColorRect" type="ColorRect" parent="WorldEnvironment/obstacle_test"]
 offset_left = 394.0
 offset_top = -110.0
 offset_right = 644.0
