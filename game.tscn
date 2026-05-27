@@ -24,9 +24,10 @@ position = Vector2(0, -360)
 
 [node name="Kitty" parent="WorldEnvironment" instance=ExtResource("1_80nbo")]
 script = ExtResource("2_feb5d")
-_move_speed = 2560.0
+_move_speed = 256.0
 _acceleration = 512.0
 _deceleration = 2048.0
+_jump_height = 256.0
 
 [node name="Player" type="Node" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
 script = ExtResource("2_e2o6t")
