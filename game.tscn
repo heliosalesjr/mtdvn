@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://chw2whwd06p15"]
+[gd_scene load_steps=5 format=3 uid="uid://chw2whwd06p15"]
 
 [ext_resource type="PackedScene" uid="uid://nj5inlfgwnv1" path="res://kitty.tscn" id="1_80nbo"]
 [ext_resource type="Script" uid="uid://dk81goi6xam4e" path="res://player.gd" id="2_e2o6t"]
+[ext_resource type="Script" uid="uid://b364j4vhn3a1e" path="res://character.gd" id="2_feb5d"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_88gup"]
 distance = -16.0
@@ -15,13 +16,17 @@ process_mode = 1
 [node name="StaticBody2D" type="StaticBody2D" parent="WorldEnvironment"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldEnvironment/StaticBody2D"]
+position = Vector2(0, -17)
 shape = SubResource("WorldBoundaryShape2D_88gup")
 
 [node name="Camera2D" type="Camera2D" parent="WorldEnvironment"]
-visible = false
+position = Vector2(0, -360)
 
 [node name="Kitty" parent="WorldEnvironment" instance=ExtResource("1_80nbo")]
-position = Vector2(327, 168)
+script = ExtResource("2_feb5d")
+_move_speed = 2560.0
+_acceleration = 512.0
+_deceleration = 2048.0
 
 [node name="Player" type="Node" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
 script = ExtResource("2_e2o6t")
