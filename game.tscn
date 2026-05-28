@@ -46,16 +46,17 @@ script = ExtResource("2_e2o6t")
 character = NodePath("..")
 
 [node name="obstacle_test" type="StaticBody2D" parent="WorldEnvironment"]
+position = Vector2(-343, -3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorldEnvironment/obstacle_test"]
-position = Vector2(517, -55)
+position = Vector2(494, 23)
 shape = SubResource("RectangleShape2D_feb5d")
 
 [node name="ColorRect" type="ColorRect" parent="WorldEnvironment/obstacle_test"]
-offset_left = 394.0
-offset_top = -110.0
-offset_right = 644.0
-offset_bottom = 2.0
+offset_left = 371.0
+offset_top = -32.0
+offset_right = 621.0
+offset_bottom = 80.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://nj5inlfgwnv1"]
+[gd_scene load_steps=21 format=3 uid="uid://nj5inlfgwnv1"]
 
 [ext_resource type="Texture2D" uid="uid://c4vaowlny23wa" path="res://Assets/Cat-Sheet.png" id="1_5r3ss"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://20pm4sclt7vn" path="res://locomotion.tres" id="2_1t5v7"]
 
 [sub_resource type="GDScript" id="GDScript_5r3ss"]
 script/source = "extends CharacterBody2D
@@ -37,6 +38,42 @@ region = Rect2(0, 0, 32, 36)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5r3ss"]
 radius = 6.0
 height = 26.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tfcqr"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4bsyk"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hdhg0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0wc8e"]
+priority = 0
+advance_mode = 2
+advance_expression = "velocity.y < 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_68a1x"]
+advance_mode = 2
+advance_expression = "velocity.y >= 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c8yq6"]
+advance_mode = 2
+advance_expression = "_is_on_floor"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1t5v7"]
+advance_mode = 2
+advance_expression = " not _is_on_floor"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fslq0"]
+states/Start/position = Vector2(216, 94)
+states/StateMachine/node = ExtResource("2_1t5v7")
+states/StateMachine/position = Vector2(487, 103)
+states/fall/node = SubResource("AnimationNodeAnimation_tfcqr")
+states/fall/position = Vector2(606, 30)
+states/jump/node = SubResource("AnimationNodeAnimation_4bsyk")
+states/jump/position = Vector2(361, 31)
+transitions = ["Start", "StateMachine", SubResource("AnimationNodeStateMachineTransition_hdhg0"), "StateMachine", "jump", SubResource("AnimationNodeStateMachineTransition_0wc8e"), "jump", "fall", SubResource("AnimationNodeStateMachineTransition_68a1x"), "fall", "StateMachine", SubResource("AnimationNodeStateMachineTransition_c8yq6"), "StateMachine", "fall", SubResource("AnimationNodeStateMachineTransition_1t5v7")]
 
 [sub_resource type="Animation" id="Animation_1t5v7"]
 length = 0.001
@@ -163,13 +200,14 @@ position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_5r3ss")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_fslq0")
+advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_tfcqr")
 }
-autoplay = "idle"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 
