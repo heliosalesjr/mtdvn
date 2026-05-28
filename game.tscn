@@ -30,14 +30,13 @@ zoom = Vector2(4, 4)
 script = ExtResource("2_feb5d")
 _walk_speed = 64.0
 _run_speed = 128.0
-_move_speed = null
 _acceleration = 256.0
 _deceleration = 2048.0
 _jump_height = 80.0
 _gravity_multiplier = 2.0
 _air_control = 0.5
 _air_brakes = 0.5
-_terminal_velocity = 1024.0
+_terminal_velocity = 512.0
 
 [node name="Player" type="Timer" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
 wait_time = 0.25

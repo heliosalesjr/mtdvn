@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export_category("Locomotion")
 @export var _walk_speed: float = 256
 @export var _run_speed: float = 512
-@export var _move_speed: float = _walk_speed
+var _move_speed: float
 @export var _acceleration: float = 512
 @export var _deceleration: float = 2048
 var direction: float 
@@ -22,6 +22,9 @@ var direction: float
 var _is_on_floor: bool
 var _was_on_floor: bool
 var is_jumping: bool = false
+
+func _ready() -> void:
+	_move_speed = _walk_speed
 
 func face_left(left: bool = true) -> void:
 	sprite_2d.flip_h = left
