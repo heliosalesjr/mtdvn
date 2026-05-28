@@ -8,6 +8,8 @@ extends CharacterBody2D
 @export var _deceleration: float = 2048
 var direction: float 
 
+@onready var sprite_2d: Sprite2D = $Sprite2D
+
 @export_category("Jumping")
 @export var _jump_height: float = 256
 @export var _gravity_multiplier: float = 1 #this is used to control the gravity for the player, but having that on other characters might help them feel lighter or heavier according to the desired effect.
@@ -20,6 +22,9 @@ var direction: float
 var _is_on_floor: bool
 var _was_on_floor: bool
 var is_jumping: bool = false
+
+func face_left(left: bool = true) -> void:
+	sprite_2d.flip_h = left
 
 func walk() -> void:
 	_move_speed = _walk_speed
@@ -39,6 +44,7 @@ func cancel_jump() -> void:
 		velocity.y /=2
 	
 func _ground_physics(delta) -> void:
+	
 	if direction:
 		if velocity.x == 0 or sign(velocity.x) == sign(direction):
 			velocity.x = move_toward(velocity.x, direction * _move_speed, _acceleration * delta)
@@ -58,6 +64,11 @@ func _air_physics(delta) -> void:
 	
 func _physics_process(delta: float) -> void:
 	
+	if direction < 0:
+		face_left()
+	elif direction > 0:
+		face_left(false)
+		
 	_was_on_floor = _is_on_floor
 	_is_on_floor = is_on_floor()
 	

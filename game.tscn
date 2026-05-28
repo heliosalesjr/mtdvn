@@ -23,20 +23,21 @@ position = Vector2(0, -17)
 shape = SubResource("WorldBoundaryShape2D_88gup")
 
 [node name="Camera2D" type="Camera2D" parent="WorldEnvironment"]
-position = Vector2(0, -360)
+position = Vector2(0, -90)
+zoom = Vector2(4, 4)
 
 [node name="Kitty" parent="WorldEnvironment" instance=ExtResource("1_80nbo")]
 script = ExtResource("2_feb5d")
-_walk_speed = 256.0
-_run_speed = 512.0
+_walk_speed = 64.0
+_run_speed = 128.0
 _move_speed = null
-_acceleration = 512.0
+_acceleration = 256.0
 _deceleration = 2048.0
-_jump_height = 256.0
-_gravity_multiplier = 1.0
+_jump_height = 80.0
+_gravity_multiplier = 2.0
 _air_control = 0.5
 _air_brakes = 0.5
-_terminal_velocity = 2048.0
+_terminal_velocity = 1024.0
 
 [node name="Player" type="Timer" parent="WorldEnvironment/Kitty" node_paths=PackedStringArray("character")]
 wait_time = 0.25
