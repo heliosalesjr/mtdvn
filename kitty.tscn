@@ -1,9 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://nj5inlfgwnv1"]
+[gd_scene load_steps=24 format=3 uid="uid://nj5inlfgwnv1"]
 
 [ext_resource type="Texture2D" uid="uid://c4vaowlny23wa" path="res://Assets/Cat-Sheet.png" id="1_5r3ss"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://20pm4sclt7vn" path="res://locomotion.tres" id="2_1t5v7"]
 [ext_resource type="AudioStream" uid="uid://b1ojj4ogu6ceh" path="res://Assets/sfx/sfx_jump.wav" id="3_tfcqr"]
 [ext_resource type="AudioStream" uid="uid://c1u73muhblvhs" path="res://Assets/sfx/sfx_land.wav" id="4_4bsyk"]
+[ext_resource type="Script" uid="uid://dr8h8j0ef5luv" path="res://random_sfx.tres.gd" id="4_hdhg0"]
 
 [sub_resource type="GDScript" id="GDScript_5r3ss"]
 script/source = "extends CharacterBody2D
@@ -215,9 +216,11 @@ libraries = {
 
 [node name="Jump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_tfcqr")
+script = ExtResource("4_hdhg0")
 
 [node name="Land" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_4bsyk")
+script = ExtResource("4_hdhg0")
 
 [node name="Coyote" type="Timer" parent="."]
 wait_time = 0.25

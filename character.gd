@@ -40,7 +40,7 @@ func run() -> void:
 func jump() -> bool:
 	if _is_on_floor or _coyote and not _coyote.is_stopped():
 		velocity.y = _jump_force
-		_jump_sfx.play()
+		_jump_sfx.play_random()
 		is_jumping = true
 		return true
 	return false
@@ -69,7 +69,7 @@ func _air_physics(delta) -> void:
 		velocity.x = move_toward(velocity.x, 0, _deceleration * _air_brakes * delta)
 
 func _on_landed() -> void:
-	_land_sfx.play()
+	_land_sfx.play_random()
 
 func _physics_process(delta: float) -> void:
 	
