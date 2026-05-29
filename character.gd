@@ -9,6 +9,7 @@ var _move_speed: float
 var direction: float 
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var _jump_sfx: AudioStreamPlayer2D = $jump
 
 @export_category("Jumping")
 @export var _jump_height: float = 256
@@ -38,6 +39,7 @@ func run() -> void:
 func jump() -> bool:
 	if _is_on_floor or _coyote and not _coyote.is_stopped():
 		velocity.y = _jump_force
+		_jump_sfx.play()
 		is_jumping = true
 		return true
 	return false
