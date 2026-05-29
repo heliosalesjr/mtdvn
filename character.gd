@@ -9,7 +9,8 @@ var _move_speed: float
 var direction: float 
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var _jump_sfx: AudioStreamPlayer2D = $jump
+@onready var _jump_sfx: AudioStreamPlayer2D = $Jump
+@onready var _land_sfx: AudioStreamPlayer2D = $Land
 
 @export_category("Jumping")
 @export var _jump_height: float = 256
@@ -66,7 +67,10 @@ func _air_physics(delta) -> void:
 		velocity.x = move_toward(velocity.x, direction * _move_speed, _acceleration * _air_control * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, _deceleration * _air_brakes * delta)
-	
+
+func _on_landed() -> void:
+	_land_sfx.play()
+
 func _physics_process(delta: float) -> void:
 	
 	if direction < 0:
@@ -79,6 +83,9 @@ func _physics_process(delta: float) -> void:
 	
 	if _was_on_floor and not _is_on_floor and velocity.y >= 0:
 		_coyote.start()
+	
+	elif not _was_on_floor and _is_on_floor:
+		_on_landed()
 	
 	if _is_on_floor:
 		_ground_physics(delta)
